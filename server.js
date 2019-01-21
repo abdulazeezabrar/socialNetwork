@@ -12,6 +12,9 @@ const profileRoute = require('./routes/api/profile');
 mongoose.connect( mongodbURI )
   .then( () => console.log("MongoDB connected") )
   .catch( err => console.log(err) );
+// required mongoose modles
+require('./models/User');
+
 
 app.get('/', (req, res) => {
   res.send("Hello");
