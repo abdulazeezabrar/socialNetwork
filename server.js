@@ -1,9 +1,15 @@
-var bodyParser = require('body-parser')
-const express = require('express');
+const bodyParser  = require('body-parser')
+const express     = require('express');
+const passport    = require('passport');
 const app = express();
 
 // start database
 require('./models').init();
+
+// Passport Middleware
+app.use(passport.initialize());
+//passport config
+require('./config/passport')(passport);
 
 // import Routes
 const usersRoute = require('./routes/api/users');
