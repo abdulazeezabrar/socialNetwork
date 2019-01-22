@@ -1,25 +1,23 @@
+var bodyParser = require('body-parser')
 const express = require('express');
-const mongoose = require('mongoose');
 const app = express();
-const { mongodbURI } = require('./config/keys');
+
+// start database
+require('./models').init();
 
 // import Routes
 const usersRoute = require('./routes/api/users');
 const postsRoute = require('./routes/api/posts');
 const profileRoute = require('./routes/api/profile');
 
-// Connecting to database
-mongoose.connect( mongodbURI )
-  .then( () => console.log("MongoDB connected") )
-  .catch( err => console.log(err) );
-// required mongoose modles
-require('./models/User');
+// Body parser configration
+app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
+app.use(bodyParser.json()); // parse application/json
 
 
 app.get('/', (req, res) => {
   res.send("Hello");
 });
-
 
 // Use our routes as express middlewares
 app.use('/api/users', usersRoute);
