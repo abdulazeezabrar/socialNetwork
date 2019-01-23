@@ -12,6 +12,7 @@ obj.init = () => {
 
   // required mongoose modles
   require('./User');
+  require('./Profile');
 }
 
 // export module
