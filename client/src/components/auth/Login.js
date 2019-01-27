@@ -1,11 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import {loginUser} from '../../actions/authActions';
+
 
 class Login extends React.Component {
   constructor(){
     super();
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      errors: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -17,14 +22,21 @@ class Login extends React.Component {
 
   onSubmit(e){
     e.preventDefault();
-    const newUser = {
+    const userData = {
       email: this.state.email,
       password: this.state.password
     };
-    console.log(newUser);
+
+    this.props.loginUser(userData);
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.auth.isAuthenticated) {this.props.history.push('/dashboard')}
+    if(nextProps.errors) this.setState({errors: nextProps.errors});
   }
 
   render () {
+    const { errors } = this.state;
     return(
       <div className="login">
         <div className="container">
@@ -34,11 +46,13 @@ class Login extends React.Component {
               <p className="lead text-center">Sign in to your DevConnector account</p>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
-                  <input type="email" className="form-control form-control-lg" placeholder="Email Address" name="email" value={this.state.email} onChange={this.onChange}/>
-                </div>
+                  <input type="email" className={"form-control form-control-lg " + (errors.email && "is-invalid") } placeholder="Email Address" name="email" value={this.state.email} onChange={this.onChange}/>
+                  {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+              </div>
                 <div className="form-group">
-                  <input type="password" className="form-control form-control-lg" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange}/>
-                </div>
+                  <input type="password" className={"form-control form-control-lg " + (errors.password && "is-invalid") } placeholder="Password" name="password" value={this.state.password} onChange={this.onChange}/>
+                  {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+              </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
@@ -49,4 +63,10 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  errors: state.errors,
+  auth: state.auth
+});
+
+
+export default connect(mapStateToProps, {loginUser})( withRouter(Login) );
