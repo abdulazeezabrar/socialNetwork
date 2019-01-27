@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
 class Landing extends React.Component {
+
+  componentDidMount(){
+    if(this.props.auth.isAuthenticated) this.props.history.push('/dashboard')
+  }
+
   render () {
     return (
       <div className="landing">
@@ -23,4 +29,5 @@ class Landing extends React.Component {
   }
 }
 
-export default Landing;
+
+export default connect( state => ({ auth: state.auth }) )( Landing )

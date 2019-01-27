@@ -13,7 +13,7 @@ export const registerUser = (userData, history) => dispatch => {
     type: GET_ERRORS,
     payload :err.response.data
   }));
-};
+}
 
 export const loginUser = (userData) => dispatch => {
 
@@ -34,11 +34,21 @@ export const loginUser = (userData) => dispatch => {
     type: GET_ERRORS,
     payload :err.response.data
   }));
-};
+}
 
+// Set current user (create object to dispatch it)
 export const setCurrentUser = decoded => {
   return {
     type: SET_CURRENT_USER,
     payload: decoded
   };
+}
+
+export const logoutUser = () => dispatch => {
+  // remove localStorage from token
+  localStorage.removeItem("jwtToken");
+  // remove token from header
+  setAuthToken(false);
+  //remove user from redux
+  dispatch(setCurrentUser({}));
 }

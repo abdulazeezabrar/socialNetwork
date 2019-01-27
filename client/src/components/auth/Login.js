@@ -34,6 +34,10 @@ class Login extends React.Component {
     if(nextProps.auth.isAuthenticated) {this.props.history.push('/dashboard')}
     if(nextProps.errors) this.setState({errors: nextProps.errors});
   }
+  
+  componentDidMount(){
+    if(this.props.auth.isAuthenticated) this.props.history.push('/dashboard')
+  }
 
   render () {
     const { errors } = this.state;

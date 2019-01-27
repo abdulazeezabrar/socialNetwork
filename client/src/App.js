@@ -22,7 +22,6 @@ if(localStorage.jwtToken){
   const decode = jwt_decode(localStorage.jwtToken);
   //set current user
   store.dispatch(setCurrentUser(decode));
-
 }
 
 class App extends Component {
