@@ -13,6 +13,7 @@ import Footer from './components/layouts/Footer.js';
 import Landing from './components/layouts/Landing.js';
 import Login from './components/auth/Login.js';
 import Register from './components/auth/Register.js';
+import Dashboard from './components/dashboard/Dashboard';
 
 //Check if it's jwtToken in localStorage
 if(localStorage.jwtToken){
@@ -35,6 +36,7 @@ class App extends Component {
             <div className="container">
               <Route path="/login" component={Login} exact />
               <Route path="/register" component={Register} exact />
+              <Route path="/dashboard" component={Dashboard} exact />
             </div>
             <Footer />
           </div>
