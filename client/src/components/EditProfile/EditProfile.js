@@ -5,9 +5,9 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import InputGroup from '../common/InputGroup';
-import { createProfile } from '../../actions/profileActions';
+import { createProfile, getCurrentProfile } from '../../actions/profileActions';
 
-class CreateProfile extends React.Component {
+class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,9 +55,31 @@ class CreateProfile extends React.Component {
     this.props.createProfile(profileData, this.props.history);
   }
 
+  componentDidMount(){
+    this.props.getCurrentProfile();
+  }
   componentWillReceiveProps(nextProps){
     if(nextProps.errors){
       this.setState({errors: nextProps.errors});
+    }
+    if(nextProps.profile){
+
+
+      const Data = {
+        handle: nextProps.profile.handle || "" ,
+        company: nextProps.profile.company || "" ,
+        website: nextProps.profile.website || "" ,
+        location: nextProps.profile.location || "" ,
+        status: nextProps.profile.status || "" ,
+        skills: nextProps.profile.skills.join(',') || "" ,
+        githubusername: nextProps.profile.githubusername || "" ,
+        bio: nextProps.profile.bio || "" ,
+      };
+      if(nextProps.profile.social){
+        Object.assign(Data, nextProps.profile.social);
+      }
+      this.setState(Data);
+
     }
   }
 
@@ -237,7 +259,8 @@ const { errors, displaySocialInputs } = this.state;
   }
 }
 const mapStateToProps = state => ({
-  errors: state.errors
+  errors: state.errors,
+  profile: state.profile.profile
 });
 
-export default connect(mapStateToProps, { createProfile })(withRouter( CreateProfile ));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter( EditProfile ));

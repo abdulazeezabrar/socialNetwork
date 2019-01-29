@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER } from './types';
-import { logoutUser } from './authActions';
 
 // Get current profile
 export const getCurrentProfile = () => dispatch => {
