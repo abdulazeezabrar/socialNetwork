@@ -14,6 +14,12 @@ class Profile extends Component {
     const handle = this.props.match.params.handle;
     this.props.getProfileByHandle(handle);
   }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.pageNotFound && this.props.profile.loading){
+      this.props.clearErrors();
+      this.props.history.push('/not-found');
+    }
+  }
 
   render () {
     const {profile, loading}  = this.props.profile;
@@ -53,7 +59,12 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  pageNotFound: state.errors.noprofile
 });
 
-export default connect(mapStateToProps, { getProfileByHandle })(Profile);
+const clearErrors = () => {
+  return({type: "GET_ERRORS",payload: {} });
+}
+
+export default connect(mapStateToProps, { getProfileByHandle, clearErrors })(Profile);
