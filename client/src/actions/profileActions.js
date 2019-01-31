@@ -95,4 +95,16 @@ export const getProfiles = () => dispatch => {
       });
     })
     .catch(err => dispatch({type: GET_ERRORS, payload: err.response.data}));
-}
+};
+
+export const getProfileByHandle = (handle) => dispatch => {
+  dispatch( setPrfileLoading());
+  axios.get(`/api/profile/handle/${handle}`)
+  .then(res => {
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+  })
+  .catch(err => dispatch({type: GET_ERRORS, payload: err.response.data}));
+};
