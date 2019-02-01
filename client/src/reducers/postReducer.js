@@ -1,4 +1,4 @@
-import {GET_POST, GET_POSTS, POST_LOADING, ADD_POST } from '../actions/types';
+import {GET_POST, GET_POSTS, POST_LOADING, ADD_POST, DELETE_POST, UPDATE_POST } from '../actions/types';
 const initPost = {
   loading: false,
   posts: null,
@@ -23,6 +23,18 @@ export default (state = initPost, actions) => {
         ...state,
         loading: false,
         posts: actions.payload
+      };
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(post => post._id !== actions.payload._id)
+      };
+    case UPDATE_POST:
+      const postIndex = state.posts.findIndex(post => post._id === actions.payload._id);
+      state.posts[postIndex] = actions.payload;
+      return{
+        ...state,
+        post: actions.payload
       };
       case POST_LOADING:
        return {

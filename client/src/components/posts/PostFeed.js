@@ -9,7 +9,7 @@ class PostFeed extends Component{
     if(posts === null || loading) return <Spinner />
     else {
       return posts.map((post, index) => (
-        <PostItem key={post._id} post={post} />
+        <PostItem key={Math.random()} post={post} />
       ));
     }
   }

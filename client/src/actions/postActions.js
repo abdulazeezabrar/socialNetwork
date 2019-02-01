@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_POST, GET_POSTS, GET_ERRORS, POST_LOADING, ADD_POST } from './types';
+import {GET_POST, GET_POSTS, GET_ERRORS, POST_LOADING, ADD_POST, DELETE_POST, UPDATE_POST } from './types';
 
 // Add Post
 export const addPost = postData => dispatch => {
@@ -25,22 +25,22 @@ export const getPostById = (id) => dispatch => {
 }
 
 // Delete Post by Id
-export const DeletePostById = (id) => dispatch => {
+export const deletePostById = (id) => dispatch => {
   axios.delete(`/api/posts/${id}`)
-  .then(res => dispatch({type: GET_POST, payload: res.data}))
+  .then(res => dispatch({type: DELETE_POST, payload: res.data}))
   .catch(err => dispatch({type: GET_ERRORS, payload: err.response.data}));
 }
 
 // likePost
 export const likePost = (id) => dispatch => {
   axios.post(`/api/posts/like/${id}`)
-  .then(res => dispatch({type: GET_POST, payload: res.data}))
+  .then(res => dispatch({type: UPDATE_POST, payload: res.data}))
   .catch(err => dispatch({type: GET_ERRORS, payload: err.response.data}));
 }
 // unlike Post
 export const unLikePost = (id) => dispatch => {
   axios.post(`/api/posts/unlike/${id}`)
-  .then(res => dispatch({type: GET_POST, payload: res.data}))
+  .then(res => dispatch({type: UPDATE_POST, payload: res.data}))
   .catch(err => dispatch({type: GET_ERRORS, payload: err.response.data}));
 }
 

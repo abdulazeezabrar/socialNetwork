@@ -58,7 +58,7 @@ router.delete('/:post_id', passport.authenticate('jwt', {session: false}), (req,
   Post.findOneAndRemove({user: userID, _id: postID})
   .then(deletedPost => {
     if(!deletedPost) return res.status(404).json({noPostFound: 'No post Found'});
-    res.json(deletedPost);
+    res.json(postID);
   })
   .catch(err => res.status(404).json({noPostFound: 'No post Found'}));
 });
