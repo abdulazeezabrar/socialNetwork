@@ -1,10 +1,10 @@
 import axios from 'axios';
-import {GET_POST, GET_POSTS, GET_ERRORS, POST_LOADING } from './types';
+import {GET_POST, GET_POSTS, GET_ERRORS, POST_LOADING, ADD_POST } from './types';
 
 // Creat Post
 export const addPost = postData => dispatch => {
   axios.post('/api/posts', postData)
-    .then(res => dispatch(type: GET_POST, payload: res.data))
+    .then(res => dispatch(type: ADD_POST, payload: res.data))
     .catch(err => dispatch(type: GET_ERRORS, payload: err.response.data));
 };
 
