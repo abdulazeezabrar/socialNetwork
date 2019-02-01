@@ -24,7 +24,7 @@ router.post('/', passport.authenticate('jwt', {session: false}) ,(req, res) => {
     avatar: req.body.avatar
   });
   newPost.save()
-    .then( post => res.json(post) )
+    .then( post => res.status(200).json(post) )
     .catch(() => res.status(500).json({msg: 'error ecueard while create new Post'}));
 });
 

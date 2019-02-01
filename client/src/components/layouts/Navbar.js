@@ -18,8 +18,11 @@ class Navbar extends React.Component {
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
+          <Link className="nav-link" to="/feed">Post feed</Link>
+        </li>
+        <li className="nav-item">
           <a className="nav-link" href="#" onClick={this.onLogOutClick.bind(this)} >
-            <img className="rounded" src={user.avatar} style={{width: '25px', marginRight: '8px'}} />
+            <img className="rounded" src={user.avatar} style={{width: '25px', marginRight: '8px'}} alt={user.name}/>
             Logout
           </a>
         </li>

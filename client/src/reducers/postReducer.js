@@ -16,7 +16,7 @@ export default (state = initPost, actions) => {
     case ADD_POST:
     return {
       ...state,
-      posts: {...actions.payload, ...state.posts}
+      posts: [actions.payload, ...state.posts]
     };
     case GET_POSTS:
       return {

@@ -21,6 +21,7 @@ import AddExperience from './components/addCredentials/addExperience.js';
 import AddEducation from './components/addCredentials/addEducation.js';
 import Profiles from './components/profiles/Profiles.js';
 import Profile from './components/profile/Profile.js';
+import Posts from './components/posts/Posts.js';
 import NotFound from './components/not-found/NotFound.js';
 
 //Check if it's jwtToken in localStorage
@@ -53,6 +54,7 @@ class App extends Component {
                 <PrivateRoute path="/edit-profile" component={EditProfile} exact />
                 <PrivateRoute path="/add-experience" component={AddExperience} exact />
                 <PrivateRoute path="/add-education" component={AddEducation} exact />
+                <PrivateRoute path="/feed" component={Posts} exact />
             </Switch>
             </div>
             <Footer />
